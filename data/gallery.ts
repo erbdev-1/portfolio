@@ -1,6 +1,6 @@
-import Img1 from "../images/gallery/1.jpg";
-import Img2 from "../images/gallery/2.jpg";
-import Img3 from "../images/gallery/3.jpg";
+import Img1 from "../public/assets/images/gallery/img-1.jpeg";
+import Img2 from "../public/assets/images/gallery/img-2.jpeg";
+import Img3 from "../public/assets/images/gallery/img-3.jpeg";
 
 export const galleryImages = [
   {
