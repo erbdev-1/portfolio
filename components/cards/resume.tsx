@@ -7,7 +7,7 @@ import Socials from "../ui/social";
 
 export default function ResumeCard() {
   return (
-    <Card className="md:h-full 2xl:h-fit">
+    <Card className="md:h-full ">
       <p className="text-lg xl:text-2xl font-medium text-primary-foreground">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit,
         consequatur corporis doloribus nobis modi numquam? Vitae sit nobis,
