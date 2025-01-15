@@ -5,15 +5,40 @@ import Card from "@/components/ui/card";
 import Input from "@/components/ui/input";
 import SelectInput from "@/components/ui/select-input";
 import TextArea from "@/components/ui/text-area";
-import React, { useState } from "react";
+import { send } from "@emailjs/browser";
+import { FormEvent, useRef, useState } from "react";
 import { FaPhoneVolume, FaProjectDiagram, FaUser } from "react-icons/fa";
 import { MdEmail, MdSubject } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
+import emailjs from "@emailjs/browser";
 
 export default function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [services, setServices] = useState<string[]>([]);
   const [budgets, setBudgets] = useState<string[]>([]);
-  console.log(services, budgets);
+
+  // Send email function using emailjs library to send email
+
+  const sendEmail = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_qwr88wg",
+        "template_xfauda2",
+        formRef.current!,
+        "P9-xVWY1egmUpP0v3"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("Email sent successfully");
+        },
+        (error) => {
+          console.log(error.text);
+          console.log("Error sending email");
+        }
+      );
+  };
 
   return (
     <div className="pt-24 px-3 lg:px-8">
@@ -36,17 +61,32 @@ export default function ContactSection() {
             />
           </div>
           {/* Contact form */}
-          <div className="lg:col-span-2 bg-secondary-background border border-border rounded-lg space-y-6 py-5 px-[25px] shadow-md">
+          <form
+            ref={formRef}
+            onSubmit={sendEmail}
+            className="lg:col-span-2 bg-secondary-background border border-border rounded-lg space-y-6 py-5 px-[25px] shadow-md"
+          >
             <div className="flex flex-col lg:flex-row items-center justify-between mb-4 gap-8">
-              <Input type="text" placeholder="Full Name" icon={<FaUser />} />
+              <Input
+                name="name"
+                type="text"
+                placeholder="Full Name"
+                icon={<FaUser />}
+              />
               <Input
                 type="email"
+                name="name"
                 placeholder="Email Address"
                 icon={<MdEmail />}
               />
             </div>
             <div className="flex  items-center justify-between mb-4 gap-8">
-              <Input type="text" placeholder="Subject" icon={<MdSubject />} />
+              <Input
+                name="name"
+                type="text"
+                placeholder="Subject"
+                icon={<MdSubject />}
+              />
             </div>
             {/* Multiple select wrapper */}
             <div className="flex flex-col gap-6">
@@ -92,6 +132,7 @@ export default function ContactSection() {
             </div>
             {/* Message input */}
             <TextArea
+              name="message"
               placeholder="Tell us about your project"
               icon={<FaProjectDiagram />}
             />
@@ -99,8 +140,23 @@ export default function ContactSection() {
               <Button className="!w-44 py-3 text-xl">
                 Send <SiMinutemailer />
               </Button>
+              {/*Hidden services and budget inputs */}
+              <div className="hidden">
+                <input
+                  type="text"
+                  name="services"
+                  value={services.join(",")}
+                  hidden
+                />
+                <input
+                  type="text"
+                  name="budgets"
+                  value={budgets.join(",")}
+                  hidden
+                />
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </Card>
     </div>
