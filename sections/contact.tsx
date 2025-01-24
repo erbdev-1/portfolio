@@ -5,15 +5,21 @@ import Card from "@/components/ui/card";
 import Input from "@/components/ui/input";
 import SelectInput from "@/components/ui/select-input";
 import TextArea from "@/components/ui/text-area";
-import { send } from "@emailjs/browser";
+
 import { FormEvent, useRef, useState } from "react";
 import { FaPhoneVolume, FaProjectDiagram, FaUser } from "react-icons/fa";
 import { MdEmail, MdSubject } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
 import emailjs from "@emailjs/browser";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  id: string;
+}
+
+export default function ContactSection({ id }: ContactSectionProps) {
   const formRef = useRef<HTMLFormElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
   const [services, setServices] = useState<string[]>([]);
   const [budgets, setBudgets] = useState<string[]>([]);
 
@@ -56,7 +62,7 @@ export default function ContactSection() {
             <ContactCard
               title="Chat with me"
               icon={<MdEmail className="fill-[#333] text-lg" />}
-              text="test@email.com"
+              text="erbdev@hotmail.com"
               btnText="Email Now"
             />
           </div>
@@ -82,7 +88,7 @@ export default function ContactSection() {
             </div>
             <div className="flex  items-center justify-between mb-4 gap-8">
               <Input
-                name="name"
+                name="subject"
                 type="text"
                 placeholder="Subject"
                 icon={<MdSubject />}
@@ -137,9 +143,11 @@ export default function ContactSection() {
               icon={<FaProjectDiagram />}
             />
             <div className="w-full flex justify-end ">
-              <Button className="!w-44 py-3 text-xl">
-                Send <SiMinutemailer />
-              </Button>
+              <div onClick={() => btnRef.current?.click()}>
+                <Button className="!w-44 py-3 text-xl">
+                  Send <SiMinutemailer />
+                </Button>
+              </div>
               {/*Hidden services and budget inputs */}
               <div className="hidden">
                 <input
@@ -155,6 +163,7 @@ export default function ContactSection() {
                   hidden
                 />
               </div>
+              <button type="submit" hidden ref={btnRef}></button>
             </div>
           </form>
         </div>

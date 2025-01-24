@@ -5,9 +5,13 @@ import { featuredData } from "@/data";
 
 const MainFeaturedCard = featuredData[0];
 
-export default function FeaturedSection() {
+interface FeaturedSectionProps {
+  id: string;
+}
+
+export default function FeaturedSection({ id }: FeaturedSectionProps) {
   return (
-    <div className="pt-24 px-3 lg:px-8">
+    <section id="featured" className="pt-24 px-3 lg:px-8">
       {/* Heading */}
       <Heading number="01" title_1="Featured" title_2="Work" />
 
@@ -22,6 +26,6 @@ export default function FeaturedSection() {
       <div className="mt-24">
         <ExpandableFeatured />
       </div>
-    </div>
+    </section>
   );
 }

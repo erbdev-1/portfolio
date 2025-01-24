@@ -6,12 +6,15 @@ import MeCard from "@/components/cards/me";
 import ResumeCard from "@/components/cards/resume";
 import StackCard from "@/components/cards/stack";
 import Heading from "@/components/heading/heading";
-import Card from "@/components/ui/card";
 import Gallery from "@/components/ui/gallery";
 
-export default function AboutSection() {
+interface AboutSectionProps {
+  id: string;
+}
+
+export default function AboutSection({ id }: AboutSectionProps) {
   return (
-    <div className="pt-24 px-3 lg:px-8">
+    <section id="about" className="pt-24 px-3 lg:px-8">
       <Heading number="02" title_1="About" title_2="Me" />
       <div className="space-y-4 py-8 ">
         <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 ms:space-y-0 2xl:grid-cols-3">
@@ -38,6 +41,6 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
