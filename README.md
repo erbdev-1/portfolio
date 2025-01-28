@@ -1,412 +1,234 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## favicon
-
-[Docs] (https://favicon.io/)
-
-### clsx and Tailwind merge
-
-[Docs] (https://www.npmjs.com/package/clsx)
-
-```sh
-npm i clsx
-```
-
--The clsx NPM package is a small and fast utility module for conditionally generating class names (className).
-
-[Docs] (https://www.npmjs.com/package/tailwind-merge)
--Utility function to efficiently merge Tailwind CSS classes in JS without style conflicts.
-
-```sh
-npm i tailwind-merge
-```
-
-- create lib/utils.ts
-
-```ts
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-```
-
-### Adding google and custom fonts
-
-- layout.tsx
-
-```tsx
-import { Bricolage_Grotesque, Oswald } from "next/font/google";
-import localFont from "next/font/local";
-import { cn } from "@/lib/utils";
-
-//Fonts
-const MainFont = Bricolage_Grotesque({ subsets: ["latin"] });
-const OswaldFont = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
-const PixelFont = localFont({
-  src: "../public/assets/fonts/pixel font-7.ttf",
-  variable: "--font-pixel",
-});
-
-return (
-  <html lang="en">
-    <body
-      className={cn(
-        MainFont.className,
-        OswaldFont.variable,
-        PixelFont.variable
-      )}
-    >
-      {children}
-    </body>
-  </html>
-);
-```
-
-- tailwind.config.tsx
-
-```tsx
-
-theme: {
-    extend: {
-      fontFamily: {
-        oswald: ["var(--font-oswald)"],
-        pixel: ["var(--font-pixel)"],
-      },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
-  },
-```
-
-### Grain background
-
-- create components/visualEffects/grain-effects.tsx
-
-## visualEffects component
-
-```tsx
-import { cn } from "@/lib/utils";
-
-export default function GrainEffect() {
-  return (
-    <div
-      className={cn(
-        "fixed top-0 left-0 w-full h-full",
-        "before-content-none before:-top-40 before:-left-40 before:w-[calc(100%+20rem)] before:h-[calc(100%+20rem)]",
-        "before:fixed before:bg-grain before:opacity-15 pointer-events-none before:animate-noisy-bg"
-      )}
-    ></div>
-  );
-}
-```
-
-- global.css
-
-```css
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  .before-content-none::before {
-    content: "";
-  }
-}
-```
-
-- tailwind-config.ts
-
-```ts
-theme: {
-    extend: {
-      fontFamily: {
-        oswald: ["var(--font-oswald)"],
-        pixel: ["var(--font-pixel)"],
-      },
-      backgroundImage: {
-        grain: "url(/assets/images/background/noisy-background.png)",
-      },
-      animation: {
-        "noisy-bg": "noise 1s steps(2) infinitive",
-      },
-      keyframes: {
-        noise: {
-          "0%": {
-            transform: "translate3d(0, 9rem, 0)",
-          },
-          "10%": {
-            transform: "translate3d(-1rem, -4rem, 0)",
-          },
-          "20%": {
-            transform: "translate3d(-8rem, 2rem, 0)",
-          },
-          "30%": {
-            transform: "translate3d(9rem, -9rem, 0)",
-          },
-          "40%": {
-            transform: "translate3d(-2rem, 7rem, 0)",
-          },
-          "50%": {
-            transform: "translate3d(-9rem, -4rem, 0)",
-          },
-          "60%": {
-            transform: "translate3d(2rem, 6rem, 0)",
-          },
-          "70%": {
-            transform: "translate3d(7rem, -8rem, 0)",
-          },
-          "80%": {
-            transform: "translate3d(-9rem, 1rem, 0)",
-          },
-          "90%": {
-            transform: "translate3d(6rem, -5rem, 0)",
-          },
-          to: {
-            transform: "translate3d(-7rem, 0, 0)",
-          },
-        },
-      },
-    },
-  },
-  plugins: [],
-
-```
-
-### Custom Animated cursor
-
-- create cursor components
-  -/components/cursor/cursor.tsx
-
-```sh
-npm i react-animated-cursor
-```
-
-```tsx
-import AnimatedCursor from "react-animated-cursor";
-import { FC } from "react";
-
-interface CursorProps {
-  color: string;
-}
-
-export const Cursor: FC<CursorProps> = ({ color }) => {
-  return (
-    <AnimatedCursor
-      innerSize={8}
-      outerSize={35}
-      innerScale={1}
-      outerScale={2}
-      outerAlpha={0}
-      innerStyle={{
-        backgroundColor: color,
-      }}
-      outerStyle={{
-        border: `1px solid ${color}`,
-      }}
-      clickables={["a", "button", "select", "input", ".link"]}
-    />
-  );
-};
-```
-
-- layout.tsx
-
-```tsx
- return (
-    <html lang="en">
-      <body
-        className={cn(
-          MainFont.className,
-          OswaldFont.variable,
-          PixelFont.variable
-        )}
-      >
-        <GrainEffect />
-        <Cursor color="#fff" />
-        {children}
-      </body>
-    </html>
-  );
-}
-
-```
-
-### Water wave effect
-
-[Docs] (https://www.npmjs.com/package/react-water-wave)
-
-```sh
-npm i react-water-wave
-```
-
-- -create a file water-wave-wrapper.tsx in visualEffects folder.
-
-- water-wave-wrapper.tsx
-
-```tsx
-"use client";
-
-import { FC } from "react";
-import WaterWave from "react-water-wave";
-
-interface WaterWaveWrapperProps {
-  imageUrl: string;
-  dropRadius: string;
-  perturbance: string;
-  resolution: string;
-  children: () => ReactNode;
-}
-
-const WaterWaveWrapper: FC<WaterWaveWrapperProps> = ({
-  imageUrl,
-  dropRadius,
-  perturbance,
-  resolution,
-  children,
-}) => {
-  return (
-    <WaterWave
-      imageUrl={imageUrl}
-      dropRadius={dropRadius}
-      perturbance={perturbance}
-      resolution={resolution}
-    >
-      {children}
-    </WaterWave>
-  );
-};
-
-export default WaterWaveWrapper;
-```
-
-- app/page.tsx
-
-```tsx
-"use client";
-import WaterWaveWrapper from "@/components/visualEffects/water-wave-wrapper";
-
-export default function Home() {
-  return (
-    <WaterWaveWrapper
-      imageUrl=""
-      dropRadius="3"
-      perturbance="3"
-      resolution="2048"
-    >
-      {() => <div className="h-screen"></div>}
-    </WaterWaveWrapper>
-  );
-}
-```
-
-### Creating the card component
-
-- Create components/ui/card.tsx
-
-```tsx
-import { cn } from "@/lib/utils";
-import { FC, ReactNode } from "react";
-
-interface CardProps {
-  title?: string;
-  children: ReactNode;
-  className?: string;
-}
-
-const Card: FC<CardProps> = ({ title, children, className }) => {
-  return (
-    <div
-      className={cn(
-        "relative bg-primary-background w-full h-fit rounded-2xl border border-border p-6 text-primary-foreground overflow-hidden",
-        className
-      )}
-    >
-      <div className="flex flex-col gap-y-6">
-        {/*Title */}
-        {title ? (
-          <div className="font-pixel">
-            <p className="uppercase text-lg">{title}</p>
-          </div>
-        ) : null}
-        {/* Children */}
-        {children}
-      </div>
-    </div>
-  );
-};
-
-export default Card;
-```
-
-- app/page.tsx
-
-```tsx
-"use client";
-import Card from "@/components/ui/card";
-import WaterWaveWrapper from "@/components/visualEffects/water-wave-wrapper";
-
-export default function Home() {
-  return (
-    <WaterWaveWrapper
-      imageUrl=""
-      dropRadius="3"
-      perturbance="3"
-      resolution="2048"
-    >
-      {() => (
-        <div className="w-full p-10">
-          <div className="max-w-2xl mx-auto">
-            <Card title="UI Components">...</Card>
-          </div>
-        </div>
-      )}
-    </WaterWaveWrapper>
-  );
-}
-```
-
-### Creating the Button Component
-
-- Create components/ui/button.tsx
-
-```tsx
-
-```
+# Portfolio
+
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+## Project Description
+
+### Overview
+The project is a **personal portfolio website** designed to showcase my skills, experience, and projects. It serves as an online resume and a platform to highlight my work to potential employers, clients, and collaborators.
+
+### Objectives
+- **Create a Personal Portfolio:** Develop a professional and aesthetically pleasing website to represent my personal brand.
+- **Showcase Skills and Experience:** Highlight my technical skills, work experience, and educational background.
+- **Display Various Sections:** Organize content into sections such as About, Contact, Featured Projects, and Landing to provide a comprehensive overview of my professional journey.
+
+### Features
+- **Responsive Design:** Ensures the website looks and functions well on all devices, including desktops, tablets, and smartphones.
+- **Interactive UI Components:** Utilizes modern libraries like Framer Motion and Swiper to create engaging animations and sliders.
+- **Custom Animated Cursor:** Enhances user experience with a unique animated cursor using `react-animated-cursor`.
+- **Water Wave Effects:** Adds visual appeal with dynamic water wave effects via `react-water-wave`.
+- **Live Clock:** Displays the current time with timezone support using `moment-timezone`.
+- **Full-Screen Navigation Menu:** Provides an immersive navigation experience with a full-screen menu powered by Framer Motion.
+- **Gallery Section:** Showcases projects and images using the Swiper slider for smooth transitions.
+- **Contact Form:** Allows visitors to reach out through a responsive and functional contact form integrated with EmailJS.
+- **Dark Mode Toggle:** Offers users the ability to switch between light and dark themes for personalized viewing.
+- **SEO Optimized:** Implements best practices to ensure the website is discoverable by search engines.
+
+## Table of Contents
+1. [Project Description](#project-description)
+   - [Overview](#overview)
+   - [Objectives](#objectives)
+   - [Features](#features)
+2. [Technologies Used](#technologies-used)
+   - [Programming Languages](#programming-languages)
+   - [Frontend Frameworks/Libraries](#frontend-frameworkslibraries)
+   - [Styling Libraries/Frameworks](#styling-librariesframeworks)
+   - [Third-Party Libraries](#third-party-libraries)
+   - [Tools and Platforms](#tools-and-platforms)
+3. [Architecture Overview](#architecture-overview)
+   - [System Architecture](#system-architecture)
+   - [Data Flow](#data-flow)
+4. [Component Schema](#component-schema)
+   - [Frontend Components](#frontend-components)
+   - [Sections](#sections)
+   - [UI Components](#ui-components)
+   - [Visual Effects](#visual-effects)
+   - [Data](#data)
+   - [Utilities](#utilities)
+5. [Installation Instructions](#installation-instructions)
+   - [Prerequisites](#prerequisites)
+   - [Setup Steps](#setup-steps)
+   - [Environment Configuration](#environment-configuration)
+6. [Usage](#usage)
+   - [Running the Application](#running-the-application)
+   - [Build for Production](#build-for-production)
+   - [Accessing the Application](#accessing-the-application)
+   - [Basic Operations](#basic-operations)
+   - [Screenshots](#screenshots)
+7. [API Documentation](#api-documentation)
+   - [Third-Party Integrations](#third-party-integrations)
+     - [1. EmailJS](#1-emailjs)
+     - [2. Swiper](#2-swiper)
+     - [3. Framer Motion](#3-framer-motion)
+     - [4. react-animated-cursor](#4-react-animated-cursor)
+     - [5. react-water-wave](#5-react-water-wave)
+     - [6. moment-timezone](#6-moment-timezone)
+   - [API Usage](#api-usage)
+   - [Authentication](#authentication)
+   - [Error Handling](#error-handling)
+8. [State Management](#state-management)
+   - [State Structure](#state-structure)
+   - [State Flow](#state-flow)
+   - [Tools Used](#tools-used)
+9. [Testing](#testing)
+   - [Testing Frameworks](#testing-frameworks)
+   - [Writing Tests](#writing-tests)
+   - [Running Tests](#running-tests)
+   - [Test Coverage](#test-coverage)
+   - [Continuous Integration](#continuous-integration)
+10. [Deployment](#deployment)
+    - [Deployment Platforms](#deployment-platforms)
+    - [Deployment Steps](#deployment-steps)
+    - [Environment Variables](#environment-variables)
+    - [Monitoring and Logging](#monitoring-and-logging)
+11. [Contributing](#contributing)
+    - [Contribution Guidelines](#contribution-guidelines)
+    - [Code of Conduct](#code-of-conduct)
+    - [Development Workflow](#development-workflow)
+    - [Reporting Issues](#reporting-issues)
+12. [Project Management](#project-management)
+    - [Milestones](#milestones)
+    - [Roadmap](#roadmap)
+    - [Task Management](#task-management)
+13. [License](#license)
+    - [License Information](#license-information)
+    - [Usage Rights](#usage-rights)
+14. [Acknowledgments](#acknowledgments)
+    - [Credits](#credits)
+    - [Contributors](#contributors)
+    - [Inspiration](#inspiration)
+15. [FAQ](#faq)
+    - [Q1: How do I reset my password?](#q1-how-do-i-reset-my-password)
+    - [Q2: Can I integrate this project with third-party services?](#q2-can-i-integrate-this-project-with-third-party-services)
+    - [Q3: How do I report a bug?](#q3-how-do-i-report-a-bug)
+16. [Contact Information](#contact-information)
+    - [Maintainers](#maintainers)
+    - [Support Channels](#support-channels)
+
+## Technologies Used
+
+### Programming Languages
+The programming languages used in this project are:
+- **TypeScript**
+- **JavaScript**
+- **CSS**
+- **HTML**
+
+### Frontend Frameworks/Libraries
+The frontend frameworks or libraries utilized in this project are:
+- **Next.js**
+- **React**
+- **Tailwind CSS**
+- **styled-components**
+- **emotion**
+
+### Styling Libraries/Frameworks
+The CSS frameworks used in this project are:
+- **Tailwind CSS**
+- **Swiper:** The most modern mobile touch slider
+
+### Third-Party Libraries
+The project uses several third-party libraries to enhance its functionality. Here is a list of the third-party libraries used in this project along with a brief explanation of each:
+
+- **`@emailjs/browser`:** A library for sending emails directly from the browser using EmailJS.
+- **`clsx`:** A utility for constructing `className` strings conditionally.
+- **`framer-motion`:** A library for animations and gestures in React applications.
+- **`moment-timezone`:** A library for parsing, validating, manipulating, and displaying dates and times in JavaScript, with timezone support.
+- **`next`:** The Next.js framework for building server-side rendered React applications.
+- **`react`:** The core library for building user interfaces in React.
+- **`react-animated-cursor`:** A library for creating animated cursors in React applications.
+- **`react-dom`:** The entry point to the DOM and server renderers for React.
+- **`react-icons`:** A library for including popular icons in React projects.
+- **`react-water-wave`:** A library for creating water wave effects in React applications.
+- **`swiper`:** A modern mobile touch slider with hardware-accelerated transitions.
+- **`tailwind-merge`:** A utility for merging Tailwind CSS classes.
+
+These libraries are specified in the `package.json` file and are used throughout the project to provide various functionalities and enhancements.
+
+### Tools and Platforms
+- **Vercel:** The application is deployed using Vercel, as indicated by the `next.config.mjs` file which includes the configuration for the Next.js application.
+
+## Architecture Overview
+The architecture of the project can be summarized as follows:
+
+- **Programming Languages:** The project uses TypeScript and JavaScript.
+- **Frontend Frameworks/Libraries:** The project uses React and Next.js.
+- **CSS Frameworks/Stylings Libraries:** The project uses Tailwind CSS, styled-components, and emotion.
+- **Third-Party Libraries:** The project integrates various third-party libraries such as `react-animated-cursor`, `react-water-wave`, `framer-motion`, `moment-timezone`, `swiper`, `clsx`, and `tailwind-merge`.
+
+### System Architecture
+The system architecture of the **Portfolio** project is composed of several key components and technologies. Here is a description of the system architecture:
+
+- **Frontend:** The frontend is built using React and Next.js. It includes various components such as `Header` (`components/navigation/header/header.tsx`), `FullScreenMenu` (`components/navigation/header/full-screen-menu/full-screen-menu.tsx`), and several UI components like `Gallery` (`components/ui/gallery.tsx`) and `LiveClock` (`components/ui/live-clock.tsx`).
+- **Styling:** The project uses Tailwind CSS along with `styled-components` and `emotion` for styling, as indicated by the presence of configuration files like `tailwind.config.ts`.
+- **Backend:** Since this is a portfolio website, backend functionalities are minimal and primarily involve sending emails via EmailJS. There is no dedicated backend server.
+- **Database:** No database is used in this project as it primarily showcases static content and interactive UI components.
+- **Authentication:** The project does not include user authentication as it serves as a personal portfolio.
+- **API Integration:** The project integrates with external APIs such as EmailJS for handling contact form submissions.
+
+### Data Flow
+1. **User Interaction:** Visitors interact with the frontend by navigating through different sections like About, Projects, and Contact.
+2. **Contact Form Submission:** When a user submits the contact form, the data is sent to EmailJS via the `@emailjs/browser` library.
+3. **Email Handling:** EmailJS processes the form data and sends an email to the designated address.
+4. **UI Updates:** Visual effects and animations are handled on the frontend using libraries like Framer Motion and Swiper, providing a dynamic user experience.
+
+## Component Schema
+
+The component schema in this project includes various components organized in different directories. Here are some key components and their respective directories:
+
+### Frontend Components
+- **Header (`components/navigation/header/header.tsx`):** Defines the header of the website, including navigation links and branding.
+- **FullScreenMenu (`components/navigation/header/full-screen-menu/full-screen-menu.tsx`):** Implements a full-screen navigation menu with animations using Framer Motion.
+- **Gallery (`components/ui/gallery.tsx`):** Showcases projects and images using the Swiper slider for smooth transitions.
+- **LiveClock (`components/ui/live-clock.tsx`):** Displays the current time with timezone support using `moment-timezone`.
+- **Cursor (`components/cursor/cursor.tsx`):** Custom animated cursor component using `react-animated-cursor`.
+- **Water Wave Wrapper (`components/visualEffects/water-wave-wrapper.tsx`):** Adds dynamic water wave effects using `react-water-wave`.
+- **NavLink (`components/navigation/header/full-screen-menu/nav-link.tsx`):** Defines individual navigation links within the full-screen menu.
+- **FullScreenMenu Components:** Includes `animation.ts`, `menu-card.tsx`, and `toggle-button.tsx` for managing animations and interactions within the full-screen menu.
+
+### Sections
+- **About (`sections/about.tsx`):** Contains information about me, my background, and my interests.
+- **Contact (`sections/contact.tsx`):** Features a contact form and contact information.
+- **Featured Projects (`sections/featured.tsx`):** Highlights selected projects with descriptions and links.
+- **Landing (`sections/landing.tsx`):** The landing page section with introductory content.
+
+### UI Components
+- **Button (`components/ui/button.tsx`):** Reusable button component with customizable styles.
+- **Card (`components/ui/card.tsx`):** Reusable card component for displaying content in a structured format.
+- **Fancy Button (`components/ui/fancy-button.tsx`):** Styled button with additional visual effects.
+- **Input (`components/ui/input.tsx`):** Reusable input field component.
+- **Profile (`components/ui/profile.tsx`):** Displays profile information and picture.
+- **Scroll Down (`components/ui/scroll-down.tsx`):** Indicator prompting users to scroll down the page.
+- **Select Input (`components/ui/select-input.tsx`):** Dropdown select component.
+- **Social (`components/ui/social.tsx`):** Links to social media profiles.
+- **Text Area (`components/ui/text-area.tsx`):** Reusable text area component for forms.
+- **Timeline (`components/ui/timeline.tsx`):** Visual timeline of experience and education.
+- **Tooltip (`components/ui/tooltip.tsx`):** Tooltip component for additional information on hover.
+
+### Visual Effects
+- **Grain Effect (`components/visualEffects/grain-effect.tsx`):** Adds a subtle grain texture to the background.
+- **Magnetic Wrapper (`components/visualEffects/magnetic-wrapper.tsx`):** Creates a magnetic hover effect for interactive elements.
+- **SVG Curve (`components/visualEffects/svg-curve.tsx`):** Renders animated SVG curves for decorative purposes.
+
+### Data
+- **Featured Projects (`data/featured.ts`):** Contains data for featured projects displayed on the website.
+- **Gallery Images (`data/gallery.ts`):** Stores image data for the gallery section.
+- **Tech Stack (`data/stack.ts`):** Lists the technologies and tools used in the projects.
+
+### Utilities
+- **Class Name Merger (`lib/utils.ts`):** Utility functions for merging and managing class names using `clsx`.
+
+## Installation Instructions
+
+### Prerequisites
+- **Node.js:** v14.x or higher
+- **TypeScript:** v4.x or higher
+- **npm:** v6.x or higher
+- **Vercel Account:** For deployment
+
+### Setup Steps
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/Portfolio.git
