@@ -5,11 +5,11 @@ export default function ToggleButton({
   setOpen,
 }: {
   open: boolean;
-  setOpen: any;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
     <button
-      onClick={() => setOpen((prev: any) => !prev)}
+      onClick={() => setOpen((prev: boolean) => !prev)}
       className="fixed right-4 top-32 m-5 z-50 w-20 h-20 rounded-full bg-[#323E56] cursor-pointer"
     >
       <div className="relative flex items-center justify-center">

@@ -38,7 +38,7 @@ const SelectInput: FC<SelectInputProps> = ({
         type={type}
         id={id}
         checked={selectedOptions?.includes(id)}
-        onChange={(e) => handleOptionsChange(id)}
+        onChange={(_e) => handleOptionsChange(id)}
         className="w-[15px] h-[15px] !rounded-xl !bg-transparent"
       />
       <label htmlFor={id}>{text}</label>

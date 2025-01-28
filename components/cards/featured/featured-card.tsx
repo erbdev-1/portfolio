@@ -15,11 +15,11 @@ interface FeaturedCardProps {
 }
 
 const FeaturedCard: React.FC<FeaturedCardProps> = ({
-  logo,
+  _logo,
   title,
   tag,
   video,
-  credits,
+  _credits,
   src,
   alt,
   active,

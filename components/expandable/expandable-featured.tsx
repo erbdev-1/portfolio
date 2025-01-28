@@ -10,7 +10,7 @@ export default function ExpandableFeatured() {
     setHoveredIndex(index);
   };
 
-  const handleMouseLeave = (index: number) => {
+  const handleMouseLeave = (_index: number) => {
     setHoveredIndex(null);
   };
 
