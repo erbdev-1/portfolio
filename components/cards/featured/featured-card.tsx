@@ -1,12 +1,15 @@
 import { ReactNode } from "react";
 import Header from "./header";
 import Video from "./video";
+import Image from "next/image";
 
 interface FeaturedCardProps {
   logo?: ReactNode;
   title: string;
   tag: string;
-  video: string;
+  video?: string;
+  src?: string;
+  alt?: string;
   credits: string;
   active: boolean;
 }
@@ -17,6 +20,8 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
   tag,
   video,
   credits,
+  src,
+  alt,
   active,
 }) => {
   return (
@@ -27,6 +32,13 @@ const FeaturedCard: React.FC<FeaturedCardProps> = ({
       <div className="relative flex float-none flex-nowrap p-6 w-full items-center justify-center h-[550px] border border-border rounded-3xl">
         {/* Video */}
         <Video video={video} active={active} />
+        {/* Image */}
+        <Image
+          src={src}
+          alt={alt}
+          className="object-cover w-full h-full rounded-3xl"
+          active={active}
+        />
       </div>
     </div>
   );
