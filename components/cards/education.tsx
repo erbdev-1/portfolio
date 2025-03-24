@@ -22,22 +22,9 @@ export default function EducationCard() {
 
 const EducationData = [
   {
-    date: "2020-2021",
-    title: "Frontend Developer",
-    subTitle: "Company ",
-    link: "/a",
-  },
-  {
-    date: "2020-2021",
-    title: "Frontend Developer",
-    subTitle: "Company ",
-    link: "/a",
-  },
-
-  {
-    date: "2020-2021",
-    title: "Frontend Developer",
-    subTitle: "Company ",
-    link: "/a",
+    date: "2007-2012",
+    title: "National Technical University of Ukraine ",
+    subTitle: "Computer Engineering ",
+    link: "https://kpi.ua/en",
   },
 ];

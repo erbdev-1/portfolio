@@ -1,3 +1,4 @@
+import AdditionalCard from "@/components/cards/additional";
 import BackgroundCard from "@/components/cards/background";
 import CertificationsCard from "@/components/cards/certifications";
 import EducationCard from "@/components/cards/education";
@@ -30,6 +31,7 @@ export default function AboutSection({ id }: AboutSectionProps) {
           <div className="space-y-4">
             <EducationCard />
             <CertificationsCard />
+            <AdditionalCard />
           </div>
           <div className="space-y-4">
             <StackCard />

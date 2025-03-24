@@ -18,12 +18,12 @@ export default function Socials() {
 const socials = [
   {
     icon: <FaLinkedin className="w-7 h-7" />,
-    link: "https://www.linkedin.com",
+    link: "https://www.linkedin.com/in/erhan-baydi/",
     username: "erhanbaydi",
   },
   {
     icon: <FaGithub className="w-7 h-7" />,
-    link: "https://www.github.com",
+    link: "https://github.com/erbdev-1",
     username: "erhanbaydi",
   },
 ];

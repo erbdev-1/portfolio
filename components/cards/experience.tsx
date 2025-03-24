@@ -23,25 +23,48 @@ export default function ExperienceCard() {
 
 const ExperienceData = [
   {
-    date: "2020-2021",
-    title: "Frontend Developer",
-    subTitle: "Company ",
-    link: "/a",
+    date: "2024-2025 ",
+    title: "Full-Stack Developer",
+    subTitle: "Turkcell  ",
+    link: "https://gelecegiyazanlar.turkcell.com.tr/",
     tag: "Remote",
   },
   {
-    date: "2020-2021",
-    title: "Frontend Developer",
-    subTitle: "Company ",
-    link: "/a",
+    date: "2024 - 2025",
+    title: "Contributor",
+    subTitle: "Scott Polar Research Institute  ",
+    link: " https://github.com/erbdev-1/heat-watchers",
     tag: "Remote",
   },
 
   {
-    date: "2020-2021",
+    date: "2022-2023 ",
     title: "Frontend Developer",
-    subTitle: "Company ",
-    link: "/a",
-    tag: "Remote",
+    subTitle: "ATBS Abkanttechnik Braunschweig GmbH ",
+    link: "https://www.atbs.de/",
+  },
+  {
+    date: "2015-2022  ",
+    title: "Co-founder ",
+    subTitle: "Verantech Llc  ",
+    link: "/",
+  },
+  {
+    date: "2014-2016   ",
+    title: "Country Manager  ",
+    subTitle: "Baris Tente Llc   ",
+    link: "/",
+  },
+  {
+    date: "2013-2014  ",
+    title: "Frontend Developer  ",
+    subTitle: "Emotion Swd  ",
+    link: "/",
+  },
+  {
+    date: "2012-2013   ",
+    title: "Software Engineer Intern  ",
+    subTitle: "LUXSOFT  ",
+    link: "/",
   },
 ];

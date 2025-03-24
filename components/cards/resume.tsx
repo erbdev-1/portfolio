@@ -9,12 +9,11 @@ export default function ResumeCard() {
   return (
     <Card className="md:h-full ">
       <p className="text-lg xl:text-2xl font-medium text-primary-foreground">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit,
-        consequatur corporis doloribus nobis modi numquam? Vitae sit nobis,
-        reiciendis officia eaque eos. Suscipit sunt consectetur voluptatum fugit
-        eius libero. Totam ab facilis sit quas provident voluptas esse numquam a
-        placeat, laborum error eum nulla aspernatur incidunt saepe repudiandae
-        nisi molestias.🚀💻
+        I thrive on solving complex problems with clean, efficient code. Each
+        project is an opportunity to craft something that`s not just functional,
+        but intuitive and enjoyable to use. My background in business gives me
+        insight into how technology can deliver real value for users and
+        stakeholders alike.🚀💻
       </p>
       {/* Signature */}
       <div>
