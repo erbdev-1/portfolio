@@ -15,16 +15,16 @@ export default function BackgroundCard() {
           HTML/CSS. I advanced to Frontend Developer roles at EMOTION SWD and
           later at ATBS Abkanttechnik in Germany, where I created React.js
           components for management dashboards while gaining exposure to backend
-          technologies. Most recently, I've worked as a Full-Stack Developer for
-          Turkcell's Geleceği Yazanlar platform, developing dynamic web
+          technologies. Most recently, I`ve worked as a Full-Stack Developer for
+          Turkcell`s Geleceği Yazanlar platform, developing dynamic web
           applications with Next.js and implementing state management with Redux
-          Toolkit. I've also contributed to research projects at Cambridge
-          University's Scott Polar Research Institute, creating data
+          Toolkit. I`ve also contributed to research projects at Cambridge
+          University`s Scott Polar Research Institute, creating data
           visualization tools. I have experience working with Git/GitHub for
           version control, Tailwind CSS for styling, and Vercel for deployment.
           My background as an entrepreneur and country manager in Ukraine has
           given me unique insights into business needs and client relationships.
-          I'm proficient in responsive design principles and have implemented
+          I`m proficient in responsive design principles and have implemented
           cross-browser compatible solutions throughout my career. I hold a
           Bachelor`s Degree in Computer Engineering and have completed intensive
           training programs including a Full Stack MERN Development Bootcamp.
